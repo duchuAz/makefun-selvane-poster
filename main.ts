@@ -1,6 +1,7 @@
-// main.ts — Make.fun entry program for ORLUNE.
+// main.ts — Make.fun entry program for SELVANE.
 //
-// The poster is rendered ahead of time (poster.html + headless Chromium) and
+// The poster is rendered ahead of time (poster.html + headless Chromium), then
+// re-encoded once by compress.mjs to bring it under the 1,048,576-byte gate, and
 // committed as entry.png next to this file. All this program does at grade time
 // is hand that exact byte-for-byte image to the harness: no network, no
 // rendering, no dependencies beyond the Node standard library.
