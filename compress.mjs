@@ -18,7 +18,7 @@
 
 import { readFileSync, writeFileSync, statSync } from "node:fs";
 import { deflateSync, inflateSync } from "node:zlib";
-import { dirname, join } from "node:path";
+import { dirname, isAbsolute, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const CAP = 1_048_576;
@@ -26,7 +26,8 @@ const moduleDir = dirname(fileURLToPath(import.meta.url));
 const args = process.argv.slice(2);
 const targetKb = Number((args.find((a) => a.startsWith("--target-kb=")) ?? "").split("=")[1] ?? 900);
 const target = targetKb * 1024;
-const file = join(moduleDir, args.find((a) => !a.startsWith("--")) ?? "entry.png");
+const named = args.find((a) => !a.startsWith("--"));
+const file = named ? (isAbsolute(named) ? named : join(moduleDir, named)) : join(moduleDir, "entry.png");
 
 // ---- PNG chunk plumbing -----------------------------------------------------
 
